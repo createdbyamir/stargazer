@@ -1,6 +1,7 @@
 // 1. Import *useState* and *useEffect*
 import React, {useState, useEffect} from 'react';
 import NasaModal from './NasaModal';
+import LoadingAtom from './Loading';
 
 export default function Nasa() {
     // 2. Create our apod variable as well as the setApod function via useState
@@ -25,7 +26,7 @@ export default function Nasa() {
     return (
         <>
             {loading ? (
-                <p>Loading...</p>
+                <p><LoadingAtom /></p>
             ) : (
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     {apod.map(item => {
