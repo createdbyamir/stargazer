@@ -63,7 +63,7 @@ export default function Nasa() {
 
                         return (
                             <li
-                                className="overflow-hidden rounded-lg shadow"
+                                className="overflow-hidden rounded-lg shadow hover:cursor-pointer"
                                 key={item.title}
                                 onClick={ testing }
                             >
