@@ -1,16 +1,104 @@
-# React + Vite
+# Stargazer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Stargazer is a React application that uses NASA's Astronomy Picture of the Day (APOD) API to display space imagery and videos from NASA's archive.
 
-Currently, two official plugins are available:
+The goal of this project was to strengthen my understanding of React fundamentals, including working with APIs, managing state, handling asynchronous data, and building reusable components.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Browse NASA's Astronomy Picture of the Day by date
+* View APOD details by selecting a card
+* Supports both image and video APOD entries
+* Loading indicator while fetching data from the API
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Screenshots
+
+Screenshots coming soon.
+
+---
+
+## Built With
+
+---
+
+* React
+* JavaScript
+* Vite
+* Tailwind CSS
+* NASA APOD API
+
+---
+
+## Project Structure
+
+```
+src
+│
+├── App.jsx
+├── index.css
+├── Loading.jsx
+├── main.jsx
+├── Nasa.jsx
+└── NasaModal.jsx
+```
+
+---
+
+## Future Improvements
+
+---
+
+* Add the ability to select how many results are displayed:
+
+  * 5
+  * 10
+  * 25
+  * 50
+  * 100
+
+* Allow users to select a custom start and end date
+
+* Add dynamic routing for individual APOD entries (`/apod/:date`)
+
+* Create shareable and bookmarkable APOD pages
+
+* Add previous and next navigation between APOD entries
+
+* Add favourites using local storage
+
+* Add search functionality
+
+* Improve accessibility and keyboard navigation
+
+* Add full responsive support across devices
+
+* Improve error handling and user feedback states
+
+---
+
+## What I Learned
+
+---
+
+Through building Stargazer, I improved my understanding of:
+
+* Fetching and working with external APIs
+* Managing asynchronous operations in React
+* Using state and props to control UI behaviour
+* Conditional rendering based on API responses
+* Creating reusable components
+* Styling applications using Tailwind CSS
+
+---
+
+## Author
+
+---
+
+Created by Amir
+
+Portfolio: https://createdbyamir.com/
