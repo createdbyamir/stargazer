@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import NasaModal from './NasaModal';
 import LoadingAtom from './Loading';
 import ApodDate from './Date';
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 
 export default function Nasa() {
     // 2. Create our apod variable as well as the setApod function via useState
@@ -87,6 +88,7 @@ export default function Nasa() {
                                     <p className="text-sm text-gray-500">
                                         {item.date}
                                     </p>
+                                    <p className="text-base text-gray-500 flex align-center items-center gap-1">View details <div className="text-xs"><FaArrowUpRightFromSquare /></div></p>
                                 </div>
                             </li>
                         );
