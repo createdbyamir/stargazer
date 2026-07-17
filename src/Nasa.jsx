@@ -2,6 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import NasaModal from './NasaModal';
 import LoadingAtom from './Loading';
+import ApodDate from './Date';
 
 export default function Nasa() {
     // 2. Create our apod variable as well as the setApod function via useState
@@ -10,10 +11,12 @@ export default function Nasa() {
   let [apod, setApod] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedApod, setSelectedApod] = useState(null);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date())
   
     // 3. Create out useEffect function
   useEffect(() => {
-    fetch(`https://api.nasa.gov/planetary/apod?api_key=${import.meta.env.VITE_API_KEY}&start_date=2026-07-01`)
+    fetch(`https://api.nasa.gov/planetary/apod?api_key=${import.meta.env.VITE_API_KEY}&start_date=${startDate.toISOString().split('T')[0]}&end_date=${endDate.toISOString().split('T')[0]}`)
     .then(response => response.json())
         // 4. Setting apod the data that we received from the response above
     .then(data => {
@@ -21,13 +24,20 @@ export default function Nasa() {
         setLoading(false)
     })
 
-  },[]);
+  },[  startDate, endDate ]);
 
     return (
         <>
             {loading ? (
-                <p><LoadingAtom /></p>
-            ) : (
+                <LoadingAtom />
+            ) : ( 
+                <div>
+                <ApodDate   
+                    startDate={startDate}
+                    setStartDate={setStartDate}
+                    endDate={endDate}
+                    setEndDate={setEndDate}
+                />
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     {apod.map(item => {
                         let media;
@@ -82,6 +92,7 @@ export default function Nasa() {
                         );
                     })}
                 </ul>
+                </div>
             )}
             {selectedApod && (
                 <NasaModal item={selectedApod} onClose={() => setSelectedApod(null)} />
