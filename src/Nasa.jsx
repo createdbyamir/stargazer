@@ -5,6 +5,7 @@ import LoadingAtom from './Loading';
 import ApodDate from './Date';
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { subDays } from "date-fns";
+import ApodSort from './Sort';
 
 export default function Nasa() {
     // 2. Create our apod variable as well as the setApod function via useState
