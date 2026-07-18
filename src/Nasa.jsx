@@ -28,6 +28,10 @@ export default function Nasa() {
 
   },[  startDate, endDate ]);
 
+  const sortedApod = [...apod].sort((currentApod, nextApod) => {
+    return new Date(currentApod.date) - new Date(nextApod.date);
+  });
+
     return (
         <>
             {loading ? (
@@ -41,7 +45,7 @@ export default function Nasa() {
                     setEndDate={setEndDate}
                 />
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {apod.map(item => {
+                    {sortedApod.map(item => {
                         let media;
 
                         if (item.media_type === "image") {
