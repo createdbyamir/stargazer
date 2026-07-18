@@ -1,5 +1,4 @@
-// 1. Import *useState* and *useEffect*
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import NasaModal from './NasaModal';
 import LoadingAtom from './Loading';
 import ApodDate from './Date';
@@ -8,109 +7,115 @@ import { subDays } from "date-fns";
 import ApodSort from './Sort';
 
 export default function Nasa() {
-    // 2. Create our apod variable as well as the setApod function via useState
-    // We're setting the default value of apod to null, so that while we wait for the
-    // fetch to complete, we dont attempt to render the image
+  // Store API data, loading state, selected card and date filters
   let [apod, setApod] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedApod, setSelectedApod] = useState(null);
   const [startDate, setStartDate] = useState(subDays(new Date(), 30));
-  const [endDate, setEndDate] = useState(new Date())
-  
-    // 3. Create out useEffect function
+  const [endDate, setEndDate] = useState(new Date());
+
+  // Fetch APOD entries whenever the selected date range changes
   useEffect(() => {
     fetch(`https://api.nasa.gov/planetary/apod?api_key=${import.meta.env.VITE_API_KEY}&start_date=${startDate.toISOString().split('T')[0]}&end_date=${endDate.toISOString().split('T')[0]}`)
-    .then(response => response.json())
-        // 4. Setting apod the data that we received from the response above
-    .then(data => {
-        setApod(data)
-        setLoading(false)
-    })
+      .then(response => response.json())
+      .then(data => {
+        setApod(data);
+        setLoading(false);
+      });
 
-  },[  startDate, endDate ]);
+  }, [startDate, endDate]);
 
+  // Create a sorted copy so we don't mutate the API data
   const sortedApod = [...apod].sort((currentApod, nextApod) => {
     return new Date(nextApod.date) - new Date(currentApod.date);
   });
 
-    return (
-        <>
-            {loading ? (
-                <LoadingAtom />
-            ) : ( 
-                <div>
-                <ApodDate   
-                    startDate={startDate}
-                    setStartDate={setStartDate}
-                    endDate={endDate}
-                    setEndDate={setEndDate}
-                />
-                <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5">
-                    {sortedApod.map(item => {
-                        let media;
-                        const shortDesc = item.explanation.substring(0, 100) + '...';
+  return (
+    <>
+      {loading ? (
+        <LoadingAtom />
+      ) : (
+        <div>
+          <ApodDate
+            startDate={startDate}
+            setStartDate={setStartDate}
+            endDate={endDate}
+            setEndDate={setEndDate}
+          />
 
-                        if (item.media_type === "image") {
-                            media = (
-                                <div
-                                    style={{ backgroundImage: `url(${item.url})` }}
-                                    className="aspect-square w-full bg-cover bg-center"
-                                />
-                            );
-                        } else if (item.media_type === "video") {
-                            media = (
-                                <div className="aspect-square w-full overflow-hidden">
-                                    <video
-                                        src={item.url}
-                                        controls
-                                        className="w-full h-full object-cover"
-                                    />
-                                </div>
-                            );
-                        } else {
-                            media = (
-                                <div className="aspect-square w-full flex items-center justify-center">
-                                    <p>Unsupported media type</p>
-                                </div>
-                            );
-                        }
-                              const handleClickCard = () => {
-                                    setSelectedApod(item);
-                                    
-                                }
+          <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5">
+            {sortedApod.map(item => {
+              let media;
 
-                        return (
-                            <li
-                                className="overflow-hidden rounded-lg shadow transition duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer"
-                                key={item.title}
-                                onClick={ handleClickCard }
-                            >
-                                {media}
+              // Shorten long explanations to keep cards consistent
+              const shortDesc = item.explanation.substring(0, 100) + '...';
 
-                                <div className="p-4">
-                                    <p className="text-sm text-gray-500">
-                                        {item.date}
-                                    </p>
+              if (item.media_type === "image") {
+                media = (
+                  <div
+                    style={{ backgroundImage: `url(${item.url})` }}
+                    className="aspect-square w-full bg-cover bg-center"
+                  />
+                );
+              } else if (item.media_type === "video") {
+                media = (
+                  <div className="aspect-square w-full overflow-hidden">
+                    <video
+                      src={item.url}
+                      controls
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                );
+              } else {
+                media = (
+                  <div className="aspect-square w-full flex items-center justify-center">
+                    <p>Unsupported media type</p>
+                  </div>
+                );
+              }
 
-                                    <h1 className="text-lg font-medium py-2">
-                                        {item.title}
-                                    </h1>
-                                    <p className="text-sm text-gray-500">
-                                        {shortDesc}
-                                    </p>
+              // Open the modal with the selected APOD entry
+              const handleClickCard = () => {
+                setSelectedApod(item);
+              };
 
-                                    <div className="text-base text-gray-500 flex align-center items-center gap-1 ml-auto w-fit"><span>Read more</span> <LuArrowRight /></div>
-                                </div>
-                            </li>
-                        );
-                    })}
-                </ul>
-                </div>
-            )}
-            {selectedApod && (
-                <NasaModal item={selectedApod} onClose={() => setSelectedApod(null)} />
-            )}
-            
-        </>
-    )
+              return (
+                <li
+                  className="overflow-hidden rounded-lg shadow transition duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer"
+                  key={item.title}
+                  onClick={handleClickCard}
+                >
+                  {media}
+
+                  <div className="p-4">
+                    <p className="text-sm text-gray-500">
+                      {item.date}
+                    </p>
+
+                    <h1 className="text-lg font-medium py-2">
+                      {item.title}
+                    </h1>
+
+                    <p className="text-sm text-gray-500">
+                      {shortDesc}
+                    </p>
+
+                    <div className="text-base text-gray-500 flex items-center gap-1 ml-auto w-fit">
+                      <span>Read more</span>
+                      <LuArrowRight />
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+
+      {selectedApod && (
+        <NasaModal item={selectedApod} onClose={() => setSelectedApod(null)} />
+      )}
+    </>
+  );
 }
