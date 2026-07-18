@@ -4,6 +4,7 @@ import NasaModal from './NasaModal';
 import LoadingAtom from './Loading';
 import ApodDate from './Date';
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
+import { subDays } from "date-fns";
 
 export default function Nasa() {
     // 2. Create our apod variable as well as the setApod function via useState
@@ -12,7 +13,7 @@ export default function Nasa() {
   let [apod, setApod] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedApod, setSelectedApod] = useState(null);
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(subDays(new Date(), 30));
   const [endDate, setEndDate] = useState(new Date())
   
     // 3. Create out useEffect function
@@ -88,7 +89,7 @@ export default function Nasa() {
                                     <p className="text-sm text-gray-500">
                                         {item.date}
                                     </p>
-                                    <p className="text-base text-gray-500 flex align-center items-center gap-1">View details <div className="text-xs"><FaArrowUpRightFromSquare /></div></p>
+                                    <div className="text-base text-gray-500 flex align-center items-center gap-1">View details <div className="text-xs"><FaArrowUpRightFromSquare /></div></div>
                                 </div>
                             </li>
                         );
