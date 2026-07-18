@@ -15,7 +15,7 @@ The project was built to strengthen React fundamentals, working with APIs, state
 * Loading indicator while fetching data
 * Responsive card grid layout
 * Date selection using a date picker
-* Automatically sorts APOD entries from newest to oldest
+* Sort APOD entries by newest or oldest first (newest by default)
 
 ---
 

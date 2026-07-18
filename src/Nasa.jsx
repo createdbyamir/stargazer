@@ -41,16 +41,19 @@ export default function Nasa() {
         <LoadingAtom />
       ) : (
         <div>
-          <ApodDate
-            startDate={startDate}
-            setStartDate={setStartDate}
-            endDate={endDate}
-            setEndDate={setEndDate}
-          />
-          <ApodSort
-            sortOrder={sortOrder}
-            setSortOrder={setSortOrder}
-          />
+            <div className="filter flex flex-col sm:flex-row gap-4 items-end">
+                <ApodDate
+                    startDate={startDate}
+                    setStartDate={setStartDate}
+                    endDate={endDate}
+                    setEndDate={setEndDate}
+                />
+                <ApodSort
+                    sortOrder={sortOrder}
+                    setSortOrder={setSortOrder}
+                />
+            </div>
+          
 
           <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5">
             {sortedApod.map(item => {
