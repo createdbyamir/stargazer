@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import NasaModal from './NasaModal';
-import LoadingAtom from './Loading';
-import ApodDate from './Date';
+import NasaModal from './components/NasaModal';
+import LoadingAtom from './components/Loading';
+import ApodDate from './components/Date';
 import { LuArrowRight } from "react-icons/lu";
 import { subDays } from "date-fns";
-import ApodSort from './Sort';
+import ApodSort from './components/Sort';
 
 export default function Nasa() {
   // Store API data, loading state, selected card and date filters
@@ -14,6 +14,7 @@ export default function Nasa() {
   const [startDate, setStartDate] = useState(subDays(new Date(), 30));
   const [endDate, setEndDate] = useState(new Date());
   const [sortOrder, setSortOrder] = useState('newest');
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Fetch APOD entries whenever the selected date range changes
   useEffect(() => {
@@ -34,6 +35,8 @@ export default function Nasa() {
       return new Date(currentApod.date) - new Date(nextApod.date);
     }
   }); 
+
+  const paginatedApod = sortedApod.slice((currentPage - 1) * 10, currentPage * 10);
 
   return (
     <>
