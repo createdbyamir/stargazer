@@ -50,7 +50,7 @@ src
 
 ### User Experience
 
-* Allow users to choose how many APOD entries are displayed (5, 10, 25, 50, 100)
+* Add pagination for browsing larger collections of APOD entries
 * Improve mobile responsiveness and accessibility
 * Add better error handling for failed API requests
 * Improve loading and empty states
