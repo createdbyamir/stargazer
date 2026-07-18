@@ -68,7 +68,7 @@ export default function Nasa() {
                                 </div>
                             );
                         }
-                              const testing = () => {
+                              const handleClickCard = () => {
                                     setSelectedApod(item);
                                     
                                 }
@@ -77,7 +77,7 @@ export default function Nasa() {
                             <li
                                 className="overflow-hidden rounded-lg shadow hover:cursor-pointer"
                                 key={item.title}
-                                onClick={ testing }
+                                onClick={ handleClickCard }
                             >
                                 {media}
 
