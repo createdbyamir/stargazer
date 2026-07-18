@@ -1,12 +1,14 @@
 
 
-export default function ApodSort({ currentApod, nextApod }) {
+export default function ApodSort({ sortOrder, setSortOrder }) {
     return (
         <>
-            <select name="Sort" id="">
-                <option value="Please select an option..."></option>
-                <option value="Newest to oldest" onClick=""></option>
-                <option value="Oldest to newest"></option>
+            <select 
+                name="Sort" 
+                onChange={(event) => setSortOrder(event.target.value)}
+            >
+                <option value="newest">Newest to oldest</option>
+                <option value="oldest">Oldest to newest</option>
             </select>
 
         </>

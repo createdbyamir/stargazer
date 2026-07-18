@@ -13,6 +13,7 @@ export default function Nasa() {
   const [selectedApod, setSelectedApod] = useState(null);
   const [startDate, setStartDate] = useState(subDays(new Date(), 30));
   const [endDate, setEndDate] = useState(new Date());
+  const [sortOrder, setSortOrder] = useState('newest');
 
   // Fetch APOD entries whenever the selected date range changes
   useEffect(() => {
@@ -27,8 +28,12 @@ export default function Nasa() {
 
   // Create a sorted copy so we don't mutate the API data
   const sortedApod = [...apod].sort((currentApod, nextApod) => {
-    return new Date(nextApod.date) - new Date(currentApod.date);
-  });
+    if (sortOrder === 'newest') {
+      return new Date(nextApod.date) - new Date(currentApod.date);
+    } else if (sortOrder === 'oldest') {
+      return new Date(currentApod.date) - new Date(nextApod.date);
+    }
+  }); 
 
   return (
     <>
@@ -41,6 +46,10 @@ export default function Nasa() {
             setStartDate={setStartDate}
             endDate={endDate}
             setEndDate={setEndDate}
+          />
+          <ApodSort
+            sortOrder={sortOrder}
+            setSortOrder={setSortOrder}
           />
 
           <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5">
