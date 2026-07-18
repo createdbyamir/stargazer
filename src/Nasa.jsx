@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import NasaModal from './NasaModal';
 import LoadingAtom from './Loading';
 import ApodDate from './Date';
-import { FaArrowUpRightFromSquare } from "react-icons/fa6";
+import { LuArrowRight } from "react-icons/lu";
 import { subDays } from "date-fns";
 import ApodSort from './Sort';
 
@@ -48,6 +48,7 @@ export default function Nasa() {
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     {sortedApod.map(item => {
                         let media;
+                        const shortDesc = item.explanation.substring(0, 100) + '...';
 
                         if (item.media_type === "image") {
                             media = (
@@ -80,21 +81,25 @@ export default function Nasa() {
 
                         return (
                             <li
-                                className="overflow-hidden rounded-lg shadow hover:cursor-pointer"
+                                className="overflow-hidden rounded-lg shadow transition duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer"
                                 key={item.title}
                                 onClick={ handleClickCard }
                             >
                                 {media}
 
                                 <div className="p-4">
-                                    <h1 className="text-lg font-medium">
-                                        {item.title}
-                                    </h1>
-
                                     <p className="text-sm text-gray-500">
                                         {item.date}
                                     </p>
-                                    <div className="text-base text-gray-500 flex align-center items-center gap-1">View details <div className="text-xs"><FaArrowUpRightFromSquare /></div></div>
+
+                                    <h1 className="text-lg font-medium py-2">
+                                        {item.title}
+                                    </h1>
+                                    <p className="text-sm text-gray-500">
+                                        {shortDesc}
+                                    </p>
+
+                                    <div className="text-base text-gray-500 flex align-center items-center gap-1 ml-auto w-fit"><span>Read more</span> <LuArrowRight /></div>
                                 </div>
                             </li>
                         );
