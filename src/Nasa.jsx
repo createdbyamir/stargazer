@@ -29,7 +29,7 @@ export default function Nasa() {
   },[  startDate, endDate ]);
 
   const sortedApod = [...apod].sort((currentApod, nextApod) => {
-    return new Date(currentApod.date) - new Date(nextApod.date);
+    return new Date(nextApod.date) - new Date(currentApod.date);
   });
 
     return (
