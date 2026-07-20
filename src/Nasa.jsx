@@ -44,21 +44,28 @@ export default function Nasa() {
         <LoadingAtom />
       ) : (
         <div>
-            <div className="filter flex flex-col sm:flex-row gap-4 items-end">
-                <ApodDate
-                    startDate={startDate}
-                    setStartDate={setStartDate}
-                    endDate={endDate}
-                    setEndDate={setEndDate}
-                />
-                <ApodSort
-                    sortOrder={sortOrder}
-                    setSortOrder={setSortOrder}
-                />
+            <div className="filter bg-[#0b1527] py-4">
+              <div className="max-w-[1440px] w-full m-auto text-[#5a6d87] flex flex-col sm:flex-row gap-4 justify-between items-center">
+                <div className="flex gap-4 items-end">
+                  <ApodDate
+                      startDate={startDate}
+                      setStartDate={setStartDate}
+                      endDate={endDate}
+                      setEndDate={setEndDate}
+                  />
+                  <ApodSort
+                      sortOrder={sortOrder}
+                      setSortOrder={setSortOrder}
+                  />
+                </div>
+                <div>
+                  <p className="uppercase">30 Results</p>
+                </div>
+              </div>
             </div>
           
 
-          <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5">
+          <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-5 max-w-[1440px] w-full m-auto py-6">
             {sortedApod.map(item => {
               let media;
 
@@ -69,22 +76,19 @@ export default function Nasa() {
                 media = (
                   <div
                     style={{ backgroundImage: `url(${item.url})` }}
-                    className="aspect-square w-full bg-cover bg-center"
+                    className="h-full w-full bg-cover bg-center"
                   />
                 );
               } else if (item.media_type === "video") {
                 media = (
-                  <div className="aspect-square w-full overflow-hidden">
-                    <video
-                      src={item.url}
-                      controls
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                  <video
+                    src={item.url}
+                    className="h-full w-full object-cover pointer-events-none"
+                  />
                 );
               } else {
                 media = (
-                  <div className="aspect-square w-full flex items-center justify-center">
+                  <div className="flex h-full w-full items-center justify-center">
                     <p>Unsupported media type</p>
                   </div>
                 );
@@ -101,12 +105,12 @@ export default function Nasa() {
                   key={item.title}
                   onClick={handleClickCard}
                 >
-                  {media}
+                  <div>
+                    <div className='relative h-[200px] overflow-hidden'>
+                      {media}
+                      <p className="text-sm text-gray-500 absolute bottom-1 left-1">{item.date}</p>
+                    </div>
 
-                  <div className="p-4">
-                    <p className="text-sm text-gray-500">
-                      {item.date}
-                    </p>
 
                     <h1 className="text-lg font-medium py-2">
                       {item.title}
