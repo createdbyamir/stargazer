@@ -5,6 +5,7 @@ import ApodDate from './components/Date';
 import { LuArrowRight } from "react-icons/lu";
 import { subDays } from "date-fns";
 import ApodSort from './components/Sort';
+import Pagination from './components/Pagination';
 
 export default function Nasa() {
   // Store API data, loading state, selected card and date filters
@@ -36,7 +37,9 @@ export default function Nasa() {
     }
   }); 
 
-  const paginatedApod = sortedApod.slice((currentPage - 1) * 10, currentPage * 10);
+  const itemsPerPage = 20;
+  const paginatedApod = sortedApod.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const total = sortedApod.length / itemsPerPage;
 
   return (
     <>
@@ -66,7 +69,7 @@ export default function Nasa() {
           
 
           <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-5 max-w-[1440px] w-full m-auto py-6">
-            {sortedApod.map(item => {
+            {paginatedApod.map(item => {
               let media;
 
               // Shorten long explanations to keep cards consistent
@@ -131,7 +134,7 @@ export default function Nasa() {
           </ul>
         </div>
       )}
-
+      <Pagination page={currentPage} totalPages={total} onPageChange={setCurrentPage} />
       {selectedApod && (
         <NasaModal item={selectedApod} onClose={() => setSelectedApod(null)} />
       )}
