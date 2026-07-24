@@ -39,7 +39,7 @@ export default function Nasa() {
 
   const itemsPerPage = 20;
   const paginatedApod = sortedApod.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-  const total = sortedApod.length / itemsPerPage;
+  const total = Math.ceil(sortedApod.length / itemsPerPage);
 
   return (
     <>
